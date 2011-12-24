@@ -37,7 +37,11 @@ class NexuizBanList(object):
 		return first([ban for ban in self.bans if ban.hostIP == hostIP and ban.bannedIP == bannedIP])
 	
 	def removeExpired(self):
+		l = len(self.bans)
 		map(self.bans.remove, [b for b in self.bans if b.isExpired()])
+		
+		if l != len(self.bans):
+			self.save()
 	
 	def bansOf(self, *servers):
 		return [ban for ban in self.bans if ban.hostIP in servers]
@@ -54,31 +58,22 @@ class NexuizBanList(object):
 			for line in [l[:-1] for l in f.readlines()]:
 				if i == 0:
 					hostIP 	 = line
-					#print "ip", hostIP
 				elif i == 1:
 					hostName = line
-					#print "name", hostName
 				elif i == 2:
 					bannedIP = line
-					#print "banned", hostIP
 				elif i == 3:
 					bannedAt = line
-					#print "at", bannedAt
 				elif i == 4:
 					unbanAt  = line
-					#print "unban", unbanAt
 				elif i == 5:
 					reason 	 = line
-					#print "reason", reason
 				
 				i += 1
 				
 				if i == 6:
 					i = 0
 					self.bans.append(NexuizBan(hostIP, hostName, bannedIP, safecast(float, bannedAt, 0), safecast(float, unbanAt, 60 ** 2), reason))
-					#print "ban added"
-		
-		#print self.bans
 		
 	def load(self):
 		try:
