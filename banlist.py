@@ -5,11 +5,11 @@ from util import *
 class NexuizBan(object):
 	def __init__(self, hostIP, hostName, bannedIP, bannedAt, unbanAt, reason):
 		self.hostIP = hostIP
-		self.hostName = hostName
+		self.hostName = hostName.replace("\n", " ")
 		self.bannedIP = bannedIP
 		self.bannedAt = bannedAt
 		self.unbanAt = unbanAt
-		self.reason = reason
+		self.reason = reason.replace("\n", " ")
 		
 	def isExpired(self):
 		return time.time() >= self.unbanAt

@@ -9,9 +9,9 @@ cgitb.enable()
 form = dictform(cgi.FieldStorage())
 
 try:
-	action = form['action']
+	action = form["action"]
 except:
-	action = ''
+	action = "view"
 
 banlist = NexuizBanList()
 banlist.removeExpired()

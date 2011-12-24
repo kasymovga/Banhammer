@@ -1,4 +1,6 @@
 
+import datetime
+
 def first(seq):
 	try:
 		return seq[0]
@@ -25,3 +27,6 @@ def safecast(t, val, default):
 	except:
 		return default
 		
+
+def timeformat(t):
+	return str(datetime.timedelta(0, t))
