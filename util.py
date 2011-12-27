@@ -1,6 +1,8 @@
 
 import datetime
 
+MAX_TIME = 999999999 * 3600 * 24
+
 def first(seq):
 	try:
 		return seq[0]
@@ -29,4 +31,5 @@ def safecast(t, val, default):
 		
 
 def timeformat(t):
-	return str(datetime.timedelta(0, t))
+	return str(datetime.timedelta(0, min(MAX_TIME, t)))
+
