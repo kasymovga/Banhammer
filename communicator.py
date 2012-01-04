@@ -1,6 +1,7 @@
 
 from banlist import *
 from time import strftime
+from util import dp2html
 import os
 
 def expectsParams(*required):
@@ -70,7 +71,7 @@ class Communicator(object):
 						<td class='%(c)s'>%%s</td>
 						<td class='%(c)s'>%%s</td>
 						<td class='%(c)s'>%%s</td>
-						<td class='%(c)s'>%%s</td>
+						<td class='%(c)s'><b>%%s</b></td>
 						<td class='%(c)s'>%%s</td>
 						<td class='%(c)s'>%%s</td>
 					</tr>""" % {"c" : c}
@@ -119,7 +120,7 @@ class Communicator(object):
 						b.bannedIP,
 						b.hostIP,
 						b.hostName,
-						b.reason,
+						dp2html(b.reason),
 						strftime("%c", time.localtime(b.bannedAt)),
 						timeformat(b.getRemainingBanTime())
 					) for n, b in enumerate(self.banlist)
