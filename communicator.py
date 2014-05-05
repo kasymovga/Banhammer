@@ -123,7 +123,7 @@ class Communicator(object):
 						dp2html(b.reason),
 						strftime("%c", time.localtime(b.bannedAt)),
 						timeformat(b.getRemainingBanTime())
-					) for n, b in enumerate(self.banlist)
+					) for n, b in enumerate(self.banlist.bans[::-1])
 				]
 			),
 			"css": """
